@@ -35,16 +35,6 @@ export default function Index() {
     //
     return (
         <View style={styles.container}>
-            <View
-                style={{
-                    borderRadius: 18,
-                    backgroundColor: "#f5f5f5",
-                    width: 350,
-                    height: 150,
-                }}
-            >
-                <Text>this is the web socket status</Text>
-            </View>
             <View style={styles.flatlistContainer}>
                 <FlatList
                     data={sensors}
