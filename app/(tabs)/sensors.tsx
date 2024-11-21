@@ -5,105 +5,47 @@ import {
     Pressable,
     TouchableOpacity,
     FlatList,
-} from 'react-native';
-import { sensors } from '../../sensors';
-
+} from "react-native";
+import { useRouter } from "expo-router";
+import { sensors } from "../../sensors";
+import SensorItem from "../components/SensorItem";
 //
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 //
-
-type Props = {
-    deviceName: String;
-    status: string; // or 'active' | 'inactive' | 'unknown'
-    id: string;
-    onPress: (args: { sensorID: string }) => void;
-};
-const SensorItem = ({ deviceName, status, id, onPress }: Props) => {
-    const styles = {
-        button: {
-            borderTopColor: '#f5f5f5',
-            borderBottomWidth: 1,
-            padding: 50,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-        },
-        text: {
-            fontSize: 16,
-            fontWeight: 'bold',
-        },
-        statusActive: {
-            backgroundColor: 'white',
-            borderRadius: 15, // For circular shape
-            height: 30,
-            width: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            shadowColor: '#30dde3',
-            shadowOffset: { width: 0, height: 1 },
-            shadowOpacity: 0.8,
-            shadowRadius: 3,
-            elevation: 5, // For Android shadow
-        },
-        statusInactive: {
-            backgroundColor: 'white',
-            borderRadius: 15, // For circular shape
-            height: 30,
-            width: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            shadowColor: '#092829',
-            shadowOffset: { width: 0, height: 1 },
-            shadowOpacity: 0.3, // Reduced shadow for not active state
-            shadowRadius: 2,
-            elevation: 2, // Less elevation for not active state
-        },
-    };
-    return (
-        <TouchableOpacity
-            onPress={() => onPress({ sensorID: id })}
-            key={id}
-            style={styles.button}
-        >
-            <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{deviceName}</Text>
-                <Text>{status === 'active' ? 'Active' : 'Not Active'}</Text>
-            </View>
-            <View
-                style={
-                    status === 'active'
-                        ? styles.statusActive
-                        : styles.statusInactive
-                }
-            >
-                {/* <Icon
-                    source="power"
-                    color={
-                        status === 'active'
-                            ? MD3Colors.error40
-                            : MD3Colors.error80
-                    }
-                    size={25}
-                /> */}
-            </View>
-        </TouchableOpacity>
-    );
-};
 
 export default function DeviceScreen() {
-    const onPress = (item) => {
-        console.log('go to item: ', item);
+    const router = useRouter();
+    //
+
+    const onPress = (id: string) => {
+        const sensorID = id;
+        let pushRoute = false;
+        for (let i = 0; i < sensors.length; i++) {
+            const item = sensors[i];
+
+            if (item.id === sensorID && item.status === "active") {
+                pushRoute = true;
+                break;
+            }
+        }
+        if (pushRoute) {
+            router.push(`/sensor/${sensorID}`); // Navigate to the item screen with the item's id
+        }
     };
+    //
     return (
         <View style={styles.container}>
             <View
                 style={{
-                    borderWidth: 0,
                     borderRadius: 18,
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: "#f5f5f5",
                     width: 350,
+                    height: 150,
                 }}
             >
+                <Text>this is the web socket status</Text>
+            </View>
+            <View style={styles.flatlistContainer}>
                 <FlatList
                     data={sensors}
                     keyExtractor={(item) => item.id}
@@ -113,6 +55,7 @@ export default function DeviceScreen() {
                             deviceName={item.deviceName}
                             status={item.status}
                             id={item.id}
+                            key={item.id}
                         />
                     )}
                 />
@@ -124,11 +67,17 @@ export default function DeviceScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#25292e',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: "#25292e",
+        justifyContent: "center",
+        alignItems: "center",
     },
     text: {
-        color: '#fff',
+        color: "#fff",
+    },
+    flatlistContainer: {
+        borderWidth: 0,
+        borderRadius: 18,
+        backgroundColor: "#f5f5f5",
+        width: 350,
     },
 });

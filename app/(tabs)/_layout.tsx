@@ -15,25 +15,14 @@ export default function TabLayout() {
                 tabBarStyle: {
                     backgroundColor: "#25292e",
                 },
+                headerShown: false,
             }}
         >
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: "Home",
-                    tabBarIcon: ({ color, focused }) => (
-                        <Ionicons
-                            name={focused ? "home-sharp" : "home-outline"}
-                            color={color}
-                            size={24}
-                        />
-                    ),
-                }}
-            />
             <Tabs.Screen
                 name="sensors"
                 options={{
                     title: "Sensors",
+                    // href: null,
                     tabBarIcon: ({ color, focused }) => (
                         <Ionicons
                             name={focused ? "home-sharp" : "home-outline"}
@@ -58,6 +47,12 @@ export default function TabLayout() {
                             size={24}
                         />
                     ),
+                }}
+            />
+            <Tabs.Screen
+                name="sensor/[id]"
+                options={{
+                    href: null, // This hides the dynamic route from the tabs
                 }}
             />
         </Tabs>

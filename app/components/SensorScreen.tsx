@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const PlaceholderImage = require("@/assets/images/dial.jpg");
 
-export default function Index() {
+export default function SensorScreen() {
     const [image, setImage] = useState<string | undefined>(undefined);
 
     const pickImageAsync = async () => {
