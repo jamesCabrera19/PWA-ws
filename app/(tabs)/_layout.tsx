@@ -19,9 +19,9 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="sensors"
+                name="index"
                 options={{
-                    title: "Sensors",
+                    title: "Home",
                     // href: null,
                     tabBarIcon: ({ color, focused }) => (
                         <Ionicons

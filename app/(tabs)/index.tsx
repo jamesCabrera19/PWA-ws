@@ -13,7 +13,7 @@ import SensorItem from "../components/SensorItem";
 import Ionicons from "@expo/vector-icons/Ionicons";
 //
 
-export default function DeviceScreen() {
+export default function Index() {
     const router = useRouter();
     //
 
