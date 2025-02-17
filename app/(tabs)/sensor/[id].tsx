@@ -1,16 +1,17 @@
-import { Link } from "expo-router";
-import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useState, useContext } from "react";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-//
+
 import Button from "../../components/Button";
 import ImageViewer from "../../components/ImageViewer";
-import SensorScreen from "@/app/components/SensorScreen";
+import { useWebSocket } from "@/app/hooks/useWebSocket";
 
 const PlaceholderImage = require("@/assets/images/dial.jpg");
 
 export default function HomeScreen() {
     const [image, setImage] = useState<string | undefined>(undefined);
+    // const [message, SetMessage] = useState<string>("");
+    const { ws, serverMessages, serverState, sendMessage } = useWebSocket();
 
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -26,26 +27,41 @@ export default function HomeScreen() {
             console.log("no image selected");
         }
     };
+
     const resetImage = () => {
         setImage(PlaceholderImage);
     };
+
+    const onDone = () => {
+        // sendMessage("Hello this is a another test");
+
+        // console.log(ws);// server state
+        // console.log(serverMessages);
+        console.log(serverState);
+    };
+
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.imageContainer}>
                 <ImageViewer
                     imgSource={PlaceholderImage}
                     selectedImage={image}
                 />
             </View>
+
             <View style={styles.footerContainer}>
                 <Button
                     label="Choose a photo"
                     theme="primary"
                     onPress={pickImageAsync}
                 />
+            </View>
+
+            <View style={styles.buttonRowContainer}>
+                <Button label="Done" onPress={onDone} />
                 <Button label="Reset" onPress={resetImage} />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -54,6 +70,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#25292e",
         alignItems: "center",
+        paddingVertical: 20,
     },
     imageContainer: {
         flex: 1,
@@ -62,5 +79,12 @@ const styles = StyleSheet.create({
     footerContainer: {
         flex: 1 / 2,
         alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonRowContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingVertical: 10,
+        width: "80%", // Ensures buttons are well spaced
     },
 });

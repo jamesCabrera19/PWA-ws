@@ -11,6 +11,7 @@ import { sensors } from "../../sensors";
 import SensorItem from "../components/SensorItem";
 //
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { SafeAreaView } from "react-native-safe-area-context";
 //
 
 export default function Index() {
@@ -34,8 +35,8 @@ export default function Index() {
     };
     //
     return (
-        <View style={styles.container}>
-            <View style={styles.flatlistContainer}>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.flatListContainer}>
                 <FlatList
                     data={sensors}
                     keyExtractor={(item) => item.id}
@@ -50,7 +51,7 @@ export default function Index() {
                     )}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
     },
-    flatlistContainer: {
+    flatListContainer: {
         borderWidth: 0,
         borderRadius: 18,
         backgroundColor: "#f5f5f5",

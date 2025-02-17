@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 
 import Button from "../components/Button";
 import ImageViewer from "../components/ImageViewer";
@@ -27,7 +27,7 @@ export default function SensorScreen() {
         setImage(PlaceholderImage);
     };
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.imageContainer}>
                 <ImageViewer
                     imgSource={PlaceholderImage}
@@ -42,7 +42,7 @@ export default function SensorScreen() {
                 />
                 <Button label="Reset" onPress={resetImage} />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

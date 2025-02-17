@@ -28,17 +28,7 @@ const SensorItem = ({ deviceName, status, id, onPress }: Props) => {
                         ? styles.statusActive
                         : styles.statusInactive
                 }
-            >
-                {/* <Icon
-                    source="power"
-                    color={
-                        status === 'active'
-                            ? MD3Colors.error40
-                            : MD3Colors.error80
-                    }
-                    size={25}
-                /> */}
-            </View>
+            ></View>
         </TouchableOpacity>
     );
 };
