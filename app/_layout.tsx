@@ -1,5 +1,5 @@
-import { Stack } from 'expo-router';
-import { WebSocketProvider } from './context/WebSocketContext';
+import { Stack } from "expo-router";
+import { WebSocketProvider } from "./components/WebSocket";
 
 const App = () => {
     return (

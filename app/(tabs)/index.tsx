@@ -6,12 +6,12 @@ import {
     TouchableOpacity,
     FlatList,
     SafeAreaView,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { sensors } from '../../sensors';
-import SensorItem from '../components/SensorItem';
+} from "react-native";
+import { useRouter } from "expo-router";
+import { sensors } from "../../sensors";
+import SensorItem from "../components/SensorItem";
 //
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 //
 
 export default function Index() {
@@ -24,7 +24,7 @@ export default function Index() {
         for (let i = 0; i < sensors.length; i++) {
             const item = sensors[i];
 
-            if (item.id === sensorID && item.status === 'active') {
+            if (item.id === sensorID && item.status === "active") {
                 pushRoute = true;
                 break;
             }
@@ -36,7 +36,7 @@ export default function Index() {
     //
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.flatlistContainer}>
+            <View style={styles.flatListContainer}>
                 <FlatList
                     data={sensors}
                     keyExtractor={(item) => item.id}
@@ -58,17 +58,17 @@ export default function Index() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#25292e',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: "#25292e",
+        justifyContent: "center",
+        alignItems: "center",
     },
     text: {
-        color: '#fff',
+        color: "#fff",
     },
-    flatlistContainer: {
+    flatListContainer: {
         borderWidth: 0,
         borderRadius: 18,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: "#f5f5f5",
         width: 350,
     },
 });
