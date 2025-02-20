@@ -1,6 +1,13 @@
 import { useContext } from "react";
 import { WebSocketContext } from "../components/WebSocket";
 
+export interface WebSocketPayload {
+    command: string;
+    data: string;
+    device_id: string;
+    other: object;
+}
+
 export const useWebSocket = () => {
     const context = useContext(WebSocketContext);
     if (!context) {
@@ -8,9 +15,11 @@ export const useWebSocket = () => {
     }
     const { ws, serverMessages, serverState } = context;
 
-    const sendMessage = (message: string) => {
+    const sendMessage = (message: WebSocketPayload) => {
+        const defaultMessage = { message: "hello from the PC" };
+
         if (ws && ws.readyState === 1) {
-            ws.send(message || "hello from the PC");
+            ws.send(JSON.stringify(message || defaultMessage));
         } else {
             console.warn("WebSocket is not connected.");
         }
